@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package user;
+option go_package=".;user";
+
+message LoginRequest {
+  string name = 1;
+}
+
+message LoginResponse {
+  string message = 1;
+}
+
+service User {
+  rpc Login(LoginRequest) returns(LoginResponse);
+}
