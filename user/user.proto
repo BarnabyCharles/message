@@ -3,14 +3,59 @@ syntax = "proto3";
 package user;
 option go_package=".;user";
 
-message LoginRequest {
-  string name = 1;
+message UserInfo {
+  int64 id=1;
+  string username=2;
+  string password=3;
+  string mobile=4;
+  Sex  sex=5;
+  int64 age=6;
+  string Address=7;
+}
+enum Sex {
+  Default=0;
+  Male   =1;
+  Female =2;
+}
+message CreateUserReq {
+  UserInfo Info = 1;
 }
 
-message LoginResponse {
-  string message = 1;
+message CreateUserRes {
+  UserInfo Info = 1;
 }
+message GetUserReq{
+   int64 id=1;
+}
+message GetUserRes{
+  UserInfo Info=1;
+}
+message GetUsersReq{
+  int64 page=1;
+  int64 pageSize=2;
+}
+message GetUsersRes{
+  UserInfo Info=1;
+  int64 Total  =2;
+}
+message UpdateUserReq{
+  UserInfo info=1;
+}
+message UpdateUserRes{}
 
+message DeleteUserReq{
+  int64 id=1;
+}
+message DeleteUserRes{}
 service User {
-  rpc Login(LoginRequest) returns(LoginResponse);
+  // 创建用户信息
+  rpc CreateUser (CreateUserReq) returns(CreateUserRes);
+  // 获取用户信息
+  rpc GetUser (GetUserReq)       returns(GetUserRes);
+  // 获取用户信息列表
+  rpc GetUsers (GetUsersReq)     returns(GetUsersRes);
+  //  修改用户信息
+  rpc UpdateUser (UpdateUserReq)     returns(UpdateUserRes);
+  //  注销用户信息
+  rpc DeleteUser (DeleteUserReq)     returns(DeleteUserRes);
 }
