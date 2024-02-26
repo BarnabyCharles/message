@@ -32,6 +32,7 @@ type UserClient interface {
 	UpdateUser(ctx context.Context, in *UpdateUserReq, opts ...grpc.CallOption) (*UpdateUserRes, error)
 	// 注销用户信息
 	DeleteUser(ctx context.Context, in *DeleteUserReq, opts ...grpc.CallOption) (*DeleteUserRes, error)
+	GetUserByUsername(ctx context.Context, in *GetUserByUsernameReq, opts ...grpc.CallOption) (*GetUserByUsernameRes, error)
 }
 
 type userClient struct {
@@ -87,6 +88,15 @@ func (c *userClient) DeleteUser(ctx context.Context, in *DeleteUserReq, opts ...
 	return out, nil
 }
 
+func (c *userClient) GetUserByUsername(ctx context.Context, in *GetUserByUsernameReq, opts ...grpc.CallOption) (*GetUserByUsernameRes, error) {
+	out := new(GetUserByUsernameRes)
+	err := c.cc.Invoke(ctx, "/user.User/GetUserByUsername", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility
@@ -101,6 +111,7 @@ type UserServer interface {
 	UpdateUser(context.Context, *UpdateUserReq) (*UpdateUserRes, error)
 	// 注销用户信息
 	DeleteUser(context.Context, *DeleteUserReq) (*DeleteUserRes, error)
+	GetUserByUsername(context.Context, *GetUserByUsernameReq) (*GetUserByUsernameRes, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -122,6 +133,9 @@ func (UnimplementedUserServer) UpdateUser(context.Context, *UpdateUserReq) (*Upd
 }
 func (UnimplementedUserServer) DeleteUser(context.Context, *DeleteUserReq) (*DeleteUserRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
+}
+func (UnimplementedUserServer) GetUserByUsername(context.Context, *GetUserByUsernameReq) (*GetUserByUsernameRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByUsername not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -226,6 +240,24 @@ func _User_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_GetUserByUsername_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByUsernameReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).GetUserByUsername(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user.User/GetUserByUsername",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).GetUserByUsername(ctx, req.(*GetUserByUsernameReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -252,6 +284,10 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteUser",
 			Handler:    _User_DeleteUser_Handler,
+		},
+		{
+			MethodName: "GetUserByUsername",
+			Handler:    _User_GetUserByUsername_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

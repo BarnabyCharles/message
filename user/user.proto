@@ -47,15 +47,24 @@ message DeleteUserReq{
   int64 id=1;
 }
 message DeleteUserRes{}
+message GetUserByUsernameReq{
+  string username=1;
+}
+message GetUserByUsernameRes{
+  UserInfo Info=1;
+}
 service User {
   // 创建用户信息
-  rpc CreateUser (CreateUserReq) returns(CreateUserRes);
+  rpc CreateUser (CreateUserReq)                returns(CreateUserRes);
   // 获取用户信息
-  rpc GetUser (GetUserReq)       returns(GetUserRes);
+  rpc GetUser (GetUserReq)                      returns(GetUserRes);
   // 获取用户信息列表
-  rpc GetUsers (GetUsersReq)     returns(GetUsersRes);
+  rpc GetUsers (GetUsersReq)                    returns(GetUsersRes);
   //  修改用户信息
-  rpc UpdateUser (UpdateUserReq)     returns(UpdateUserRes);
+  rpc UpdateUser (UpdateUserReq)                returns(UpdateUserRes);
   //  注销用户信息
-  rpc DeleteUser (DeleteUserReq)     returns(DeleteUserRes);
+  rpc DeleteUser (DeleteUserReq)                returns(DeleteUserRes);
+
+  rpc GetUserByUsername (GetUserByUsernameReq)  returns(GetUserByUsernameRes);
+
 }

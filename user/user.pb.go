@@ -632,6 +632,100 @@ func (*DeleteUserRes) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{10}
 }
 
+type GetUserByUsernameReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+}
+
+func (x *GetUserByUsernameReq) Reset() {
+	*x = GetUserByUsernameReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_user_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetUserByUsernameReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserByUsernameReq) ProtoMessage() {}
+
+func (x *GetUserByUsernameReq) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserByUsernameReq.ProtoReflect.Descriptor instead.
+func (*GetUserByUsernameReq) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetUserByUsernameReq) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+type GetUserByUsernameRes struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Info *UserInfo `protobuf:"bytes,1,opt,name=Info,proto3" json:"Info,omitempty"`
+}
+
+func (x *GetUserByUsernameRes) Reset() {
+	*x = GetUserByUsernameRes{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_user_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetUserByUsernameRes) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserByUsernameRes) ProtoMessage() {}
+
+func (x *GetUserByUsernameRes) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserByUsernameRes.ProtoReflect.Descriptor instead.
+func (*GetUserByUsernameRes) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetUserByUsernameRes) GetInfo() *UserInfo {
+	if x != nil {
+		return x.Info
+	}
+	return nil
+}
+
 var File_user_proto protoreflect.FileDescriptor
 
 var file_user_proto_rawDesc = []byte{
@@ -675,9 +769,16 @@ var file_user_proto_rawDesc = []byte{
 	0x22, 0x1f, 0x0a, 0x0d, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65,
 	0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69,
 	0x64, 0x22, 0x0f, 0x0a, 0x0d, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52,
-	0x65, 0x73, 0x2a, 0x28, 0x0a, 0x03, 0x53, 0x65, 0x78, 0x12, 0x0b, 0x0a, 0x07, 0x44, 0x65, 0x66,
+	0x65, 0x73, 0x22, 0x32, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x42, 0x79, 0x55,
+	0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x71, 0x12, 0x1a, 0x0a, 0x08, 0x75, 0x73,
+	0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x75, 0x73,
+	0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x3a, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65,
+	0x72, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x12, 0x22,
+	0x0a, 0x04, 0x49, 0x6e, 0x66, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x75,
+	0x73, 0x65, 0x72, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04, 0x49, 0x6e,
+	0x66, 0x6f, 0x2a, 0x28, 0x0a, 0x03, 0x53, 0x65, 0x78, 0x12, 0x0b, 0x0a, 0x07, 0x44, 0x65, 0x66,
 	0x61, 0x75, 0x6c, 0x74, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x4d, 0x61, 0x6c, 0x65, 0x10, 0x01,
-	0x12, 0x0a, 0x0a, 0x06, 0x46, 0x65, 0x6d, 0x61, 0x6c, 0x65, 0x10, 0x02, 0x32, 0x8f, 0x02, 0x0a,
+	0x12, 0x0a, 0x0a, 0x06, 0x46, 0x65, 0x6d, 0x61, 0x6c, 0x65, 0x10, 0x02, 0x32, 0xdc, 0x02, 0x0a,
 	0x04, 0x55, 0x73, 0x65, 0x72, 0x12, 0x36, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55,
 	0x73, 0x65, 0x72, 0x12, 0x13, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74,
 	0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x13, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e,
@@ -694,8 +795,13 @@ var file_user_proto_rawDesc = []byte{
 	0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x12, 0x36, 0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
 	0x55, 0x73, 0x65, 0x72, 0x12, 0x13, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x44, 0x65, 0x6c, 0x65,
 	0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x13, 0x2e, 0x75, 0x73, 0x65, 0x72,
-	0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x42, 0x08,
-	0x5a, 0x06, 0x2e, 0x3b, 0x75, 0x73, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x12, 0x4b,
+	0x0a, 0x11, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x6e,
+	0x61, 0x6d, 0x65, 0x12, 0x1a, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73,
+	0x65, 0x72, 0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x71, 0x1a,
+	0x1a, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x42, 0x79,
+	0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x42, 0x08, 0x5a, 0x06, 0x2e,
+	0x3b, 0x75, 0x73, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -711,20 +817,22 @@ func file_user_proto_rawDescGZIP() []byte {
 }
 
 var file_user_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_user_proto_goTypes = []interface{}{
-	(Sex)(0),              // 0: user.Sex
-	(*UserInfo)(nil),      // 1: user.UserInfo
-	(*CreateUserReq)(nil), // 2: user.CreateUserReq
-	(*CreateUserRes)(nil), // 3: user.CreateUserRes
-	(*GetUserReq)(nil),    // 4: user.GetUserReq
-	(*GetUserRes)(nil),    // 5: user.GetUserRes
-	(*GetUsersReq)(nil),   // 6: user.GetUsersReq
-	(*GetUsersRes)(nil),   // 7: user.GetUsersRes
-	(*UpdateUserReq)(nil), // 8: user.UpdateUserReq
-	(*UpdateUserRes)(nil), // 9: user.UpdateUserRes
-	(*DeleteUserReq)(nil), // 10: user.DeleteUserReq
-	(*DeleteUserRes)(nil), // 11: user.DeleteUserRes
+	(Sex)(0),                     // 0: user.Sex
+	(*UserInfo)(nil),             // 1: user.UserInfo
+	(*CreateUserReq)(nil),        // 2: user.CreateUserReq
+	(*CreateUserRes)(nil),        // 3: user.CreateUserRes
+	(*GetUserReq)(nil),           // 4: user.GetUserReq
+	(*GetUserRes)(nil),           // 5: user.GetUserRes
+	(*GetUsersReq)(nil),          // 6: user.GetUsersReq
+	(*GetUsersRes)(nil),          // 7: user.GetUsersRes
+	(*UpdateUserReq)(nil),        // 8: user.UpdateUserReq
+	(*UpdateUserRes)(nil),        // 9: user.UpdateUserRes
+	(*DeleteUserReq)(nil),        // 10: user.DeleteUserReq
+	(*DeleteUserRes)(nil),        // 11: user.DeleteUserRes
+	(*GetUserByUsernameReq)(nil), // 12: user.GetUserByUsernameReq
+	(*GetUserByUsernameRes)(nil), // 13: user.GetUserByUsernameRes
 }
 var file_user_proto_depIdxs = []int32{
 	0,  // 0: user.UserInfo.sex:type_name -> user.Sex
@@ -733,21 +841,24 @@ var file_user_proto_depIdxs = []int32{
 	1,  // 3: user.GetUserRes.Info:type_name -> user.UserInfo
 	1,  // 4: user.GetUsersRes.Info:type_name -> user.UserInfo
 	1,  // 5: user.UpdateUserReq.info:type_name -> user.UserInfo
-	2,  // 6: user.User.CreateUser:input_type -> user.CreateUserReq
-	4,  // 7: user.User.GetUser:input_type -> user.GetUserReq
-	6,  // 8: user.User.GetUsers:input_type -> user.GetUsersReq
-	8,  // 9: user.User.UpdateUser:input_type -> user.UpdateUserReq
-	10, // 10: user.User.DeleteUser:input_type -> user.DeleteUserReq
-	3,  // 11: user.User.CreateUser:output_type -> user.CreateUserRes
-	5,  // 12: user.User.GetUser:output_type -> user.GetUserRes
-	7,  // 13: user.User.GetUsers:output_type -> user.GetUsersRes
-	9,  // 14: user.User.UpdateUser:output_type -> user.UpdateUserRes
-	11, // 15: user.User.DeleteUser:output_type -> user.DeleteUserRes
-	11, // [11:16] is the sub-list for method output_type
-	6,  // [6:11] is the sub-list for method input_type
-	6,  // [6:6] is the sub-list for extension type_name
-	6,  // [6:6] is the sub-list for extension extendee
-	0,  // [0:6] is the sub-list for field type_name
+	1,  // 6: user.GetUserByUsernameRes.Info:type_name -> user.UserInfo
+	2,  // 7: user.User.CreateUser:input_type -> user.CreateUserReq
+	4,  // 8: user.User.GetUser:input_type -> user.GetUserReq
+	6,  // 9: user.User.GetUsers:input_type -> user.GetUsersReq
+	8,  // 10: user.User.UpdateUser:input_type -> user.UpdateUserReq
+	10, // 11: user.User.DeleteUser:input_type -> user.DeleteUserReq
+	12, // 12: user.User.GetUserByUsername:input_type -> user.GetUserByUsernameReq
+	3,  // 13: user.User.CreateUser:output_type -> user.CreateUserRes
+	5,  // 14: user.User.GetUser:output_type -> user.GetUserRes
+	7,  // 15: user.User.GetUsers:output_type -> user.GetUsersRes
+	9,  // 16: user.User.UpdateUser:output_type -> user.UpdateUserRes
+	11, // 17: user.User.DeleteUser:output_type -> user.DeleteUserRes
+	13, // 18: user.User.GetUserByUsername:output_type -> user.GetUserByUsernameRes
+	13, // [13:19] is the sub-list for method output_type
+	7,  // [7:13] is the sub-list for method input_type
+	7,  // [7:7] is the sub-list for extension type_name
+	7,  // [7:7] is the sub-list for extension extendee
+	0,  // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_user_proto_init() }
@@ -888,6 +999,30 @@ func file_user_proto_init() {
 				return nil
 			}
 		}
+		file_user_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetUserByUsernameReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_user_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetUserByUsernameRes); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -895,7 +1030,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_user_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   11,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
