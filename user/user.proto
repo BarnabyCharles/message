@@ -35,7 +35,7 @@ message GetUsersReq{
   int64 pageSize=2;
 }
 message GetUsersRes{
-  UserInfo Info=1;
+repeated  UserInfo Info=1;
   int64 Total  =2;
 }
 message UpdateUserReq{
