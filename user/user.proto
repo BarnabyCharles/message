@@ -41,7 +41,9 @@ repeated  UserInfo Info=1;
 message UpdateUserReq{
   UserInfo info=1;
 }
-message UpdateUserRes{}
+message UpdateUserRes{
+  UserInfo info=1;
+}
 
 message DeleteUserReq{
   int64 id=1;
