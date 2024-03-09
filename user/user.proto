@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package user;
 option go_package=".;user";
-
+import "google/api/annotations.proto";
 message UserInfo {
   int64 id=1;
   string username=2;
@@ -59,7 +59,13 @@ service User {
   // 创建用户信息
   rpc CreateUser (CreateUserReq)                returns(CreateUserRes);
   // 获取用户信息
-  rpc GetUser (GetUserReq)                      returns(GetUserRes);
+  rpc GetUser (GetUserReq)                      returns(GetUserRes){
+    // 这里添加了google.api.http注释
+    option (google.api.http) = {
+      post: "/user/get"
+      body: "*"
+    };
+  }
   // 获取用户信息列表
   rpc GetUsers (GetUsersReq)                    returns(GetUsersRes);
   //  修改用户信息

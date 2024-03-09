@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package goods;
+option go_package="./goods";
+
+//message GoodsInfo {
+//  int64 id=1;
+//  string goodsName=2;
+//  string image=3;
+//  string SpecificationName=4; // 规格名称
+//  string AttributeListName=5; // 属性值
+//  string GoodsPrice =6; // 商品价格
+//  int64 Stock =7;// 商品库存
+//  Status status=8;
+//}
+message GoodsInfo {
+  int64 id=1;
+  string goodsName=2;
+  Status status=3;
+  string image=4;
+}
+enum Status {
+   Default=0; // 未上架
+    Listing=1; // 上架
+    DElIST=2; // 下架
+}
+message CreateGoodsReq {
+  GoodsInfo info=1;
+}
+
+message CreateGoodsRes {
+  GoodsInfo Info = 1;
+}
+
+service Goods {
+  // 添加商品信息
+  rpc CreateGoods(CreateGoodsRes) returns(CreateGoodsRes);
+}
