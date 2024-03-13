@@ -23,7 +23,10 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GoodsClient interface {
 	// 添加商品信息
-	CreateGoods(ctx context.Context, in *CreateGoodsRes, opts ...grpc.CallOption) (*CreateGoodsRes, error)
+	CreateGoods(ctx context.Context, in *CreateGoodsReq, opts ...grpc.CallOption) (*CreateGoodsRes, error)
+	// 添加商品规格属性值
+	CreateSpecification(ctx context.Context, in *CreateSpecificationReq, opts ...grpc.CallOption) (*CreateSpecificationRes, error)
+	CreateSku(ctx context.Context, in *CreateSkuReq, opts ...grpc.CallOption) (*CreateSkuRes, error)
 }
 
 type goodsClient struct {
@@ -34,9 +37,27 @@ func NewGoodsClient(cc grpc.ClientConnInterface) GoodsClient {
 	return &goodsClient{cc}
 }
 
-func (c *goodsClient) CreateGoods(ctx context.Context, in *CreateGoodsRes, opts ...grpc.CallOption) (*CreateGoodsRes, error) {
+func (c *goodsClient) CreateGoods(ctx context.Context, in *CreateGoodsReq, opts ...grpc.CallOption) (*CreateGoodsRes, error) {
 	out := new(CreateGoodsRes)
 	err := c.cc.Invoke(ctx, "/goods.Goods/CreateGoods", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *goodsClient) CreateSpecification(ctx context.Context, in *CreateSpecificationReq, opts ...grpc.CallOption) (*CreateSpecificationRes, error) {
+	out := new(CreateSpecificationRes)
+	err := c.cc.Invoke(ctx, "/goods.Goods/CreateSpecification", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *goodsClient) CreateSku(ctx context.Context, in *CreateSkuReq, opts ...grpc.CallOption) (*CreateSkuRes, error) {
+	out := new(CreateSkuRes)
+	err := c.cc.Invoke(ctx, "/goods.Goods/CreateSku", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +69,10 @@ func (c *goodsClient) CreateGoods(ctx context.Context, in *CreateGoodsRes, opts 
 // for forward compatibility
 type GoodsServer interface {
 	// 添加商品信息
-	CreateGoods(context.Context, *CreateGoodsRes) (*CreateGoodsRes, error)
+	CreateGoods(context.Context, *CreateGoodsReq) (*CreateGoodsRes, error)
+	// 添加商品规格属性值
+	CreateSpecification(context.Context, *CreateSpecificationReq) (*CreateSpecificationRes, error)
+	CreateSku(context.Context, *CreateSkuReq) (*CreateSkuRes, error)
 	mustEmbedUnimplementedGoodsServer()
 }
 
@@ -56,8 +80,14 @@ type GoodsServer interface {
 type UnimplementedGoodsServer struct {
 }
 
-func (UnimplementedGoodsServer) CreateGoods(context.Context, *CreateGoodsRes) (*CreateGoodsRes, error) {
+func (UnimplementedGoodsServer) CreateGoods(context.Context, *CreateGoodsReq) (*CreateGoodsRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGoods not implemented")
+}
+func (UnimplementedGoodsServer) CreateSpecification(context.Context, *CreateSpecificationReq) (*CreateSpecificationRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSpecification not implemented")
+}
+func (UnimplementedGoodsServer) CreateSku(context.Context, *CreateSkuReq) (*CreateSkuRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSku not implemented")
 }
 func (UnimplementedGoodsServer) mustEmbedUnimplementedGoodsServer() {}
 
@@ -73,7 +103,7 @@ func RegisterGoodsServer(s grpc.ServiceRegistrar, srv GoodsServer) {
 }
 
 func _Goods_CreateGoods_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateGoodsRes)
+	in := new(CreateGoodsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -85,7 +115,43 @@ func _Goods_CreateGoods_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: "/goods.Goods/CreateGoods",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GoodsServer).CreateGoods(ctx, req.(*CreateGoodsRes))
+		return srv.(GoodsServer).CreateGoods(ctx, req.(*CreateGoodsReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Goods_CreateSpecification_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateSpecificationReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GoodsServer).CreateSpecification(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/goods.Goods/CreateSpecification",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GoodsServer).CreateSpecification(ctx, req.(*CreateSpecificationReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Goods_CreateSku_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateSkuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GoodsServer).CreateSku(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/goods.Goods/CreateSku",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GoodsServer).CreateSku(ctx, req.(*CreateSkuReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -100,6 +166,14 @@ var Goods_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateGoods",
 			Handler:    _Goods_CreateGoods_Handler,
+		},
+		{
+			MethodName: "CreateSpecification",
+			Handler:    _Goods_CreateSpecification_Handler,
+		},
+		{
+			MethodName: "CreateSku",
+			Handler:    _Goods_CreateSku_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
